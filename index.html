@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessible megamenu</title>
+  <script defer src="https://unpkg.com/alpinejs@3.10.3/dist/cdn.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body x-data="{ paddified: true }">
+	<header 
+			class="header px-12 relative "
+			:class="paddified ? 'py-0' : 'py-6' "
+			>
+		<div 
+			class="wrapper container mx-auto flex justify-between"
+			:class="paddified ? 'items-stretch' : 'items-center' "
+			>
+			<div 
+				class="logo flex items-center"
+				:class="paddified ? 'py-6' : 'py-0' "
+					 >
+				<svg width="35" height="35" viewBox="0 0 35 35">
+					<circle cx="17.5" cy="17.5" r="17.5" fill="#000"/>
+				</svg>
+			</div>
+			<nav class="nav">
+				<ul 
+					 x-data="{ links: ['link', 'link 2', 'link3', 'link4', 'link5'] }"
+					 class="grid grid-cols-5 gap-48 h-full"
+					 >
+					<template x-for="(link, index) in links" :key="index">
+						<li 
+								x-data="{ open: false, closed_by_click: false, closed_by_esc: false }" 
+								@mouseenter="closed_by_esc = false"
+								@mouseleave="$el.children[0].blur(), closed_by_click = false"
+								@click.outside="open = false"		
+								@keyup.escape.window="if (open) { open = false, closed_by_esc = true }; document.activeElement.blur()"
+								class="nav__item flex justify-center items-center px-4"
+								:class="{ 'closedByClick' : closed_by_click , 'closedByEsc' : closed_by_esc }" 
+								:style=" open ? 'background-color: #21618c;' : '' "
+								>
+							<button 
+									x-text="link"
+									class=" font-bold uppercase"
+									:class="paddified ? 'py-6' : 'py-0'"
+									:aria-selected="open"
+									@click.prevent="open ? (closed_by_click = true, open = !open) : (open = !open)">
+							</button>
+
+							<!-- x-show="open" won't overwrite css specificity -->
+							<div 
+								class="submenu hidden absolute inset-x-0 top-full w-full h-fit py-16 px-12 "
+								:class=" open ? '!block' : '' "
+								>
+								<div class="container mx-auto flex justify-between">
+									<button>
+										SUBMENU 
+										<span 
+											class="uppercase" 
+											x-text="link">
+										</span>
+									</button>
+									<button>
+										SUBMENU 
+										<span 
+											class="uppercase" 
+											x-text="link">
+										</span>
+									</button>
+									<button>
+										SUBMENU 
+										<span 
+											class="uppercase" 
+											x-text="link">
+										</span>
+									</button>
+									<button>
+										SUBMENU 
+										<span 
+											class="uppercase" 
+											x-text="link">
+										</span>
+									</button>
+								</div>
+							</div>
+						</li>
+					</template>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	
+	<footer class="footer absolute inset-x-0 bottom-0 py-4">
+		<div class="container mx-auto h-fit flex items-center justify-around">
+			<div class="flex items-center gap-4">
+				<input id="check1" x-model="paddified" type="checkbox" class="h-5 w-5">
+				<label for="check1" class="font-bold italic">paddify</label>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

@@ -1,0 +1,154 @@
+
+:focus-visible {
+  outline: 2px solid black;
+  outline-offset: 2px;
+}
+
+.\!block {
+  display: block !important;
+}
+
+.\!hidden {
+  display: none !important;
+}
+
+.header {
+	background-color: #aed6f1;
+}
+
+.footer  {
+	background-color: #d6dbdf;
+}
+
+.wrapper {
+	background-color: #7fb3d5;
+}
+
+.nav__item {
+	background-color: #2e86c1;
+}
+
+.nav__item:hover {
+	background-color: #21618c;
+}
+
+.nav__item:focus-within {
+	background-color: #21618c;
+}
+
+.submenu {
+	background-color: #abebc6;
+}
+
+.submenu:hover {
+	background-color: #58d68d;
+}
+
+/*  ---------STEP-1---------  
+
+.nav__item {
+	
+	&:hover {
+		.submenu {
+			display: block;
+		}
+	}
+	
+	.submenu {
+		
+		&:hover {
+			display: block;
+		}
+	}
+}
+
+/*  ---------STEP-2---------  
+
+.nav__item {
+	
+	&:hover,
+	&:focus-within {
+		.submenu {
+			display: block;
+		}
+	}
+	
+	.submenu {
+		
+		&:hover {
+			display: block;
+		}
+	}
+}
+
+/*  ---------STEP-3--------- 
+
+.nav__item {
+	
+	&:not(.closedByClick):hover,
+	&:not(.closedByClick):focus-within {
+		.submenu {
+			display: block;
+		}
+	}
+	
+	.submenu {
+		
+		&:hover {
+			display: block;
+		}
+	}
+}
+
+/*  ---------STEP-4---------  
+
+.nav__item {
+	
+	&:not(.closedByClick):hover,
+	&:not(.closedByClick):focus-within {
+		.submenu {
+			display: block;
+		}
+	}
+		
+		.submenu {
+
+			&:hover {
+				display: block;
+			}
+		}
+
+}
+
+/*  ---------STEP-5---------  
+
+.nav__item {
+	
+	&:not(.closedByClick, .closedByEsc):hover,
+	&:not(.closedByClick):focus-within {
+		.submenu {
+			display: block;
+		}
+	}
+	
+	&:not(.closedByEsc) {
+		
+		.submenu {
+			
+				&:hover {
+					display: block;
+				}
+			}
+		}
+}
+
+/*  ---------STEP-6--------- */
+
+.nav__item:not(.closedByClick, .closedByEsc):hover .submenu,
+.nav__item:not(.closedByClick):focus-within .submenu{
+  display: block;
+}
+
+.nav__item:not(.closedByEsc) .submenu:hover {
+  display: block;
+}
