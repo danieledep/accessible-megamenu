@@ -11,25 +11,30 @@
 </head>
 <body x-data="{ paddified: true }">
 	<header 
-			class="header px-12 relative "
+			class="header relative "
 			:class="paddified ? 'py-0' : 'py-6' "
 			>
 		<div 
 			class="wrapper container mx-auto flex justify-between"
 			:class="paddified ? 'items-stretch' : 'items-center' "
 			>
-			<div 
-				class="logo flex items-center"
-				:class="paddified ? 'py-6' : 'py-0' "
-					 >
-				<svg width="35" height="35" viewBox="0 0 35 35">
-					<circle cx="17.5" cy="17.5" r="17.5" fill="#000"/>
-				</svg>
-			</div>
+			<a href="" id="logo">
+				<span 
+					class="logo uppercase font-bold flex items-center gap-4"
+					:class="paddified ? 'py-6' : 'py-0' " 
+					>
+					<svg alt="logo" aria-hidden="true" width="35" height="35" viewBox="0 0 35 35">
+						<circle cx="17.5" cy="17.5" r="17.5" fill="#000"/>
+					</svg>
+					Logo
+				</span>
+			</a>
 			<nav class="nav">
 				<ul 
 					 x-data="{ links: ['link', 'link 2', 'link3', 'link4', 'link5'] }"
-					 class="grid grid-cols-5 gap-48 h-full"
+					 role="tree"
+					 aria-expanded="true"
+					 class="grid grid-cols-5 gap-36 h-full"
 					 >
 					<template x-for="(link, index) in links" :key="index">
 						<li 
@@ -37,13 +42,33 @@
 								@mouseenter="closed_by_esc = false"
 								@mouseleave="$el.children[0].blur(), closed_by_click = false"
 								@click.outside="open = false"		
-								@keyup.escape.window="if (open) { open = false, closed_by_esc = true }; document.activeElement.blur()"
+								@keyup.escape="
+									if (open) { open = false, closed_by_esc = true }; 
+									document.activeElement.blur()"
+								@keyup.right="
+									if ((document.activeElement == $el.children[0] || $el.children[1].contains(document.activeElement)) && $el.nextElementSibling ) 
+										{ $el.nextElementSibling.children[0].focus() };"
+								@keyup.left="
+									if ((document.activeElement == $el.children[0] || $el.children[1].contains(document.activeElement)) && $el.previousElementSibling && index > 0) 
+										{ $el.previousElementSibling.children[0].focus() };"
+								@keyup.down="
+									if (document.activeElement == $el.children[0] ) 
+										{ 
+											let focusable = $el.children[1].querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex=\'-1\'])');
+											focusable[0].focus();
+											};"
+								@keyup.up="
+									if ( $el.children[1].contains(document.activeElement) ) 
+										{ $el.children[0].focus() };"
+								role="treeitem"
+								:aria-expanded="open"
 								class="nav__item flex justify-center items-center px-4"
 								:class="{ 'closedByClick' : closed_by_click , 'closedByEsc' : closed_by_esc }" 
 								:style=" open ? 'background-color: #21618c;' : '' "
 								>
 							<button 
 									x-text="link"
+									:id="link"
 									class=" font-bold uppercase"
 									:class="paddified ? 'py-6' : 'py-0'"
 									:aria-selected="open"
@@ -55,36 +80,48 @@
 								class="submenu hidden absolute inset-x-0 top-full w-full h-fit py-16 px-12 "
 								:class=" open ? '!block' : '' "
 								>
-								<div class="container mx-auto flex justify-between">
-									<button>
-										SUBMENU 
-										<span 
-											class="uppercase" 
-											x-text="link">
-										</span>
-									</button>
-									<button>
-										SUBMENU 
-										<span 
-											class="uppercase" 
-											x-text="link">
-										</span>
-									</button>
-									<button>
-										SUBMENU 
-										<span 
-											class="uppercase" 
-											x-text="link">
-										</span>
-									</button>
-									<button>
-										SUBMENU 
-										<span 
-											class="uppercase" 
-											x-text="link">
-										</span>
-									</button>
-								</div>
+								<ul 
+									role="group"
+									:aria-labelledby="link"
+									class="container mx-auto flex justify-between"
+									>
+									<li role="treeitem">
+										<a href="">
+											SUBMENU 
+											<span 
+												class="uppercase" 
+												x-text="link">
+											</span>
+										</a>
+									</li>
+									<li role="treeitem">
+										<a href="">
+											SUBMENU 
+											<span 
+												class="uppercase" 
+												x-text="link">
+											</span>
+										</a>
+									</li>
+									<li role="treeitem">
+										<a href="">
+											SUBMENU 
+											<span 
+												class="uppercase" 
+												x-text="link">
+											</span>
+										</a>
+									</li>
+									<li role="treeitem">
+										<a href="">
+											SUBMENU 
+											<span 
+												class="uppercase" 
+												x-text="link">
+											</span>
+										</a>
+									</li>
+								</ul>
 							</div>
 						</li>
 					</template>
@@ -92,6 +129,16 @@
 			</nav>
 		</div>
 	</header>
+
+	<main class="container">
+		<h1 class="h1">
+			Accessible megamenu
+		</h1>
+		<p class="p">
+			An accessible megamenu built with AlpineJs and Tailwind. 
+			It works when hovered, clicked or focused with keyboard.
+		</p>
+	</main>
 	
 	<footer class="footer absolute inset-x-0 bottom-0 py-4">
 		<div class="container mx-auto h-fit flex items-center justify-around">

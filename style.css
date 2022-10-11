@@ -44,6 +44,23 @@
 	background-color: #58d68d;
 }
 
+.h1 {
+	font-size: 36px;
+	font-weight: bold;
+	margin-top: 24px;
+}
+
+.container {
+	margin: 0 auto;
+	max-width: 1024px;
+	padding: 0 24px;
+}
+
+.p {
+	font-size: 18px;
+	margin-top: 24px;
+}
+
 /*  ---------STEP-1---------  
 
 .nav__item {
