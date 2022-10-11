@@ -31,7 +31,7 @@
 			</a>
 			<nav class="nav">
 				<ul 
-					 x-data="{ links: ['link', 'link 2', 'link3', 'link4', 'link5'] }"
+					 x-data="{ links: ['link', 'link2', 'link3', 'link4', 'link5'] }"
 					 role="tree"
 					 aria-expanded="true"
 					 class="grid grid-cols-5 gap-36 h-full"
@@ -60,7 +60,6 @@
 								@keyup.up="
 									if ( $el.children[1].contains(document.activeElement) ) 
 										{ $el.children[0].focus() };"
-								:id="link"
 								role="treeitem"
 								:aria-expanded="open"
 								class="nav__item flex justify-center items-center px-4"
@@ -69,6 +68,7 @@
 								>
 							<button 
 									x-text="link"
+									:id="link"
 									class=" font-bold uppercase"
 									:class="paddified ? 'py-6' : 'py-0'"
 									:aria-selected="open"
