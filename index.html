@@ -15,7 +15,7 @@
 			:class="paddified ? 'py-0' : 'py-6' "
 			>
 		<div 
-			class="wrapper container mx-auto flex justify-between"
+			class="wrapper container mx-auto flex justify-between gap-x-24"
 			:class="paddified ? 'items-stretch' : 'items-center' "
 			>
 			<a href="" id="logo">
@@ -29,12 +29,12 @@
 					Logo
 				</span>
 			</a>
-			<nav class="nav">
+			<nav class="nav w-full">
 				<ul 
 					 x-data="{ links: ['link', 'link2', 'link3', 'link4', 'link5'] }"
 					 role="tree"
 					 aria-expanded="true"
-					 class="grid grid-cols-5 gap-36 h-full"
+					 class="flex justify-between h-full"
 					 >
 					<template x-for="(link, index) in links" :key="index">
 						<li 
